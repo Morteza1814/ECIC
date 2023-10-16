@@ -1,0 +1,354 @@
+#include "ooo_cpu.h"
+#include <bits/stdc++.h>
+// branch types
+// #define NOT_BRANCH   0
+// #define BRANCH_DIRECT_JUMP 1
+// #define BRANCH_INDIRECT  2
+// #define BRANCH_CONDITIONAL 3
+// #define BRANCH_DIRECT_CALL 4
+// #define BRANCH_INDIRECT_CALL 5
+// #define BRANCH_RETURN  6
+// #define BRANCH_OTHER   7
+
+
+vector<uint64_t> RAS;
+uint64_t signature, last_signature;
+uint64_t RAS_matches = 0, RAS_mismatches = 0;
+set<uint64_t> RAS_addresses;
+set<uint64_t> branch_addresses;
+vector<uint64_t> miss_log;
+vector<uint64_t> prefetch_queue;
+uint64_t current_block = 0, last_block = 0;
+
+uint64_t morteza_miss_log_count=0,morteza_last_miss_log_count=0;
+
+uint64_t morteza_RAS_read_cntr=0;
+uint64_t morteza_RAS_write_cntr=0;
+uint64_t morteza_signature_read_cntr=0;
+uint64_t morteza_signature_write_cntr=0;
+uint64_t morteza_lastsignature_read_cntr=0;
+uint64_t morteza_lastsignature_write_cntr=0;
+uint64_t morteza_miss_log_read_cntr=0;
+uint64_t morteza_miss_log_write_cntr=0;
+uint64_t morteza_prefetch_queue_read_cntr=0;
+uint64_t morteza_prefetch_queue_write_cntr=0;
+uint64_t morteza_current_block_read_cntr=0;
+uint64_t morteza_current_block_write_cntr=0;
+uint64_t morteza_last_block_read_cntr=0;
+uint64_t morteza_last_block_write_cntr=0;
+uint64_t morteza_full_table_read_cntr=0;
+uint64_t morteza_full_table_write_cntr=0;
+uint64_t morteza_table_read_cntr=0;
+uint64_t morteza_table_write_cntr=0;
+
+
+struct REGION {
+	uint64_t trigger;
+	set<int64_t> bit_vector;
+
+	REGION() {
+		trigger = 0;
+	}
+};
+
+struct RDIP_ENTRY
+{
+	uint64_t tag;
+	uint64_t region_size;
+	vector<REGION> regions;
+
+	RDIP_ENTRY(uint64_t rg = 3) {
+		tag = 0;
+		region_size = rg;
+		regions.resize(region_size);
+	}
+
+	void update_regions(vector<uint64_t> &miss_log) {
+		bool found = false;
+		for (uint64_t i = 0; i < miss_log.size(); i++) {
+			for (uint64_t j = 0; j < region_size; j++) {
+				if (regions[j].trigger != 0) {
+					int64_t diff = miss_log[i] - regions[j].trigger;
+					if (diff >= -2 && diff <= 6) {
+						regions[j].bit_vector.insert(diff);
+						found = true;
+						morteza_miss_log_read_cntr++;
+						break;
+					}
+				}
+			}
+
+			if (!found) {
+				REGION tmp;
+				tmp.trigger = miss_log[i];
+				morteza_miss_log_read_cntr++;
+				tmp.bit_vector.insert(0);
+
+				regions.push_back(tmp);
+				regions.erase(regions.begin());
+			}
+		}
+	}
+
+	vector<uint64_t> get_prefetches() {
+		vector<uint64_t> prefetches;
+		for (uint64_t i = 0; i < region_size; i++) {
+			if (regions[i].trigger != 0) {
+				for (set<int64_t>::iterator it = regions[i].bit_vector.begin(); it != regions[i].bit_vector.end(); it++) {
+					prefetches.push_back((regions[i].trigger + (*it)) << LOG2_BLOCK_SIZE);
+				}
+			}
+		}
+		return prefetches;
+	}
+
+	void printRDIPEntry() {
+		cout << "Tag: " << tag << "\n";
+		cout << "region_size: " << region_size << "\n";
+		for (uint i = 0; i < region_size; i++) {
+			cout << "Region: " << i << "\n";
+			cout << "\t trigger: " << regions[i].trigger << "\n";
+			for (set<int64_t>::iterator it = regions[i].bit_vector.begin(); it != regions[i].bit_vector.end(); it++) {
+				cout << "\t\t" << (*it) << "\n";
+			}
+		}
+	}
+};
+
+struct RDIP {
+	uint64_t num_of_sets;
+	uint64_t num_of_ways;
+	uint64_t num_of_sets_bits;
+
+	uint64_t num_of_hits;
+	uint64_t num_of_misses;
+
+	vector< vector <RDIP_ENTRY> > table;
+	bool full_metadata;
+	map<uint64_t, RDIP_ENTRY> full_table;
+	set<uint64_t> observed_signatures;
+
+	RDIP(uint64_t s, uint64_t w, bool full_metadata) {
+		this->full_metadata = full_metadata;
+		num_of_hits = 0;
+		num_of_misses = 0;
+
+		if (!full_metadata) {
+			num_of_sets = s;
+			num_of_ways = w;
+			num_of_sets_bits = log2(num_of_sets);
+
+			table.resize(num_of_sets);
+			for (uint64_t i = 0; i < num_of_sets; i++) {
+				table[i].resize(num_of_ways);
+			}
+		}
+	}
+
+	void update(uint64_t prev_signature, vector<uint64_t> &miss_log) {
+		observed_signatures.insert(prev_signature);
+
+		if (full_metadata) {
+			full_table[prev_signature].update_regions(miss_log);
+			morteza_full_table_write_cntr++;
+			return;
+		}
+		uint64_t set_number = prev_signature % num_of_sets;
+		uint64_t tag = (prev_signature >> num_of_sets_bits);
+
+		bool found = false;
+		for (uint64_t i = 0; i < table[set_number].size(); i++) {
+			if (table[set_number][i].tag == tag) {
+				found = true;
+				table[set_number][i].update_regions(miss_log);
+				morteza_table_write_cntr++;
+				num_of_hits++;
+			}
+		}
+
+		if (!found) {
+			RDIP_ENTRY tmp;
+			tmp.tag = tag;
+			tmp.update_regions(miss_log);
+			num_of_misses++;
+			table[set_number].push_back(tmp);
+			morteza_table_write_cntr++;
+			table[set_number].erase(table[set_number].begin());
+		}
+	}
+
+	vector<uint64_t> prefetch(uint64_t cur_signature) {
+		vector<uint64_t> prefetches;
+		if (full_metadata) {
+			prefetches = full_table[cur_signature].get_prefetches();
+			morteza_full_table_read_cntr++;
+			return prefetches;
+		}
+		uint64_t set_number = cur_signature % num_of_sets;
+		uint64_t tag = (cur_signature >> num_of_sets_bits);
+
+		bool found = false;
+		for (uint64_t i = 0; i < table[set_number].size(); i++) {
+			if (table[set_number][i].tag == tag) {
+				found = true;
+				prefetches = table[set_number][i].get_prefetches();
+				morteza_table_read_cntr++;
+				num_of_hits++;
+			}
+		}
+
+		if (!found) {
+			num_of_misses++;
+		}
+
+		return prefetches;
+	}
+
+	void printRDIP(bool printTable) {
+		if (printTable) {
+			for (uint64_t i = 0; i < num_of_sets; i++) {
+				cout << "\n\n\nSet " << i << "\n";
+				for (uint64_t j = 0; j < num_of_ways; j++) {
+					cout << "Way " << j << "\n";
+					table[i][j].printRDIPEntry();
+				}
+			}
+		}
+		cout << "num_of_hits: " << num_of_hits << "\n";
+		cout << "num_of_misses: " << num_of_misses << "\n";
+		cout << "hit_rate: " << (double)num_of_hits / (num_of_hits + num_of_misses) << "\n";
+		cout << "observed_signatures: " << observed_signatures.size() << "\n";
+
+	}
+};
+
+RDIP *rdip;
+
+void update_signature(bool isCall) {
+	// cout << "update miss log for: " << last_signature << "\n";
+	// cout << "misses:\n";
+	for (uint64_t i = 0; i < miss_log.size(); i++) {
+		// cout << "\t" << miss_log[i] << "\n";
+	}
+	rdip->update(last_signature, miss_log);
+	morteza_last_miss_log_count = miss_log.size();
+	if(morteza_miss_log_count < morteza_last_miss_log_count)
+		morteza_miss_log_count = morteza_last_miss_log_count;
+	miss_log.clear();
+
+	last_signature = signature;
+	morteza_lastsignature_read_cntr++;
+	morteza_lastsignature_write_cntr++;
+	morteza_signature_read_cntr+=2;
+	morteza_signature_write_cntr++;
+	signature = 0;
+	for (int64_t i = RAS.size() - 1, j = 0; j < 4 && i >= 0; i--, j++) {
+		morteza_RAS_read_cntr++;
+		signature ^= (RAS[i] >> 1);
+	}
+	if (!isCall) {
+		signature |= 1;
+	}
+
+	signature &= ((1UL << 33) - 1);
+
+	// cout << "last_signature: " << last_signature << "\t cur_signature: " << signature << "\n";
+	// cout << "get_prefetches for: " << signature << "\n";
+	vector<uint64_t> prefetches = rdip->prefetch(signature);
+	prefetch_queue.insert(prefetch_queue.end(), prefetches.begin(), prefetches.end());
+	morteza_prefetch_queue_write_cntr++;
+}
+
+void do_prefetch(O3_CPU *core) {
+	if (prefetch_queue.empty()) {
+		return;
+	}
+	morteza_prefetch_queue_read_cntr++;
+	core->prefetch_code_line(prefetch_queue[0]);
+	prefetch_queue.erase(prefetch_queue.begin());
+}
+
+void O3_CPU::l1i_prefetcher_initialize()
+{
+	rdip = new RDIP(1 * 1024, 4, false);
+}
+
+
+void O3_CPU::l1i_prefetcher_branch_operate(uint64_t ip, uint8_t branch_type, uint64_t branch_target)
+{
+	if (branch_type == BRANCH_DIRECT_CALL || branch_type == BRANCH_INDIRECT_CALL) {
+		morteza_RAS_write_cntr++;
+		RAS.push_back(ip + 4);
+		RAS_addresses.insert(ip + 4);
+		update_signature(true);
+	}
+	else if (branch_type == BRANCH_RETURN) {
+		if (RAS.empty()) {
+			return;
+		}
+		morteza_RAS_read_cntr++;
+		if (RAS.back() == branch_target) {
+			RAS_matches++;
+		}
+		else {
+			RAS_mismatches++;
+		}
+		update_signature(false);
+		RAS.erase(RAS.begin() + RAS.size() - 1);
+	}
+
+	if (branch_type != NOT_BRANCH) {
+		branch_addresses.insert(ip);
+	}
+}
+
+//void O3_CPU::l1i_prefetcher_misprediction_signal() {
+//}
+
+void O3_CPU::l1i_prefetcher_cache_operate(uint64_t addr, uint8_t cache_hit, uint8_t prefetch_hit)
+{
+	current_block = addr >> LOG2_BLOCK_SIZE;
+	morteza_current_block_write_cntr++;
+	morteza_last_block_read_cntr++;
+	if (current_block != last_block) {
+		if (!cache_hit) {
+			morteza_miss_log_write_cntr++;
+			miss_log.push_back(current_block);
+			// cout << "missed block: " << current_block << "\n";
+		}
+	}
+	morteza_current_block_read_cntr++;
+	morteza_last_block_write_cntr++;
+	last_block = current_block;
+}
+
+void O3_CPU::l1i_prefetcher_cycle_operate()
+{
+	do_prefetch(this);
+}
+
+void O3_CPU::l1i_prefetcher_cache_fill(uint64_t v_addr, uint32_t set, uint32_t way, uint8_t prefetch, uint64_t evicted_v_addr) {
+}
+
+//void O3_CPU::l1i_prefetcher_prefetch_response(uint64_t v_addr, uint32_t set, uint32_t way, uint8_t prefetch, uint64_t evicted_v_addr) {
+//}
+
+void O3_CPU::l1i_prefetcher_final_stats()
+{
+	rdip->printRDIP(false);
+	cout << "RAS addresses: " << RAS_addresses.size() << "\n";
+	cout << "branch_addresses: " << branch_addresses.size() << "\n";
+	cout << "RAS match: " << RAS_matches << "\t RAS_mismatches: " << RAS_mismatches << "\t accuracy: " << (double)RAS_matches / (RAS_matches + RAS_mismatches) << "\n";
+	cout << "\n morteza stats start \n";
+	cout <<"\nSHEET"<<endl;
+	cout <<"RAS_access_cntr : "<< morteza_RAS_read_cntr+morteza_RAS_write_cntr << endl;
+	cout <<"current_block_access_cntr : "<< morteza_current_block_read_cntr+morteza_current_block_write_cntr << endl;
+	cout <<"table_access_cntr : "<< morteza_table_read_cntr+morteza_table_write_cntr << endl;
+	cout <<"last_block_access_cntr : "<<  morteza_last_block_read_cntr+morteza_last_block_write_cntr << endl;
+	cout <<"last_signature_access_cntr : "<<  morteza_lastsignature_read_cntr+morteza_lastsignature_write_cntr << endl;
+	cout <<"miss_log_access_cntr : "<<  morteza_miss_log_read_cntr+morteza_miss_log_write_cntr << endl;
+	cout <<"prefetch_queue_access_cntr : "<<  morteza_prefetch_queue_read_cntr+morteza_prefetch_queue_write_cntr << endl;
+	cout <<"signature_access_cntr : "<<  morteza_signature_read_cntr+morteza_signature_write_cntr << endl;
+	cout << "miss log count : " << morteza_miss_log_count << "\n\n";
+	cout << "\nmorteza stats end";
+}

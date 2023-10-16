@@ -1,0 +1,309 @@
+MANA initialize 
+tds: 2 tdm: 2
+size MANA SINGLE: 15.5 KB
+size MANA NULTIPLE: 0 KB
+size HOBPT: 0.703125 KB
+size SRQ: 0.14502 KB
+size SABs: 0.290039 KB
+size prefetch queue: 0.453125 KB
+total: 17.0913 KB
+Initialize SIGNATURE TABLE
+ST_SET: 1
+ST_WAY: 256
+ST_TAG_BIT: 16
+ST_TAG_MASK: ffff
+
+Initialize PATTERN TABLE
+PT_SET: 512
+PT_WAY: 4
+SIG_DELTA_BIT: 7
+C_SIG_BIT: 4
+C_DELTA_BIT: 4
+
+Initialize PREFETCH FILTER
+FILTER_SET: 1024
+
+*** ChampSim Multicore Out-of-Order Simulator ***
+
+Warmup Instructions: 5000000
+Simulation Instructions: 5000000
+Number of CPUs: 1
+LLC sets: 2048
+LLC ways: 16
+Off-chip DRAM Size: 4096 MB Channels: 1 Width: 64-bit Data Rate: 3200 MT/s
+
+CPU 0 runs /mnt/share/champ/dpc3_traces/client_001.champsimtrace.xz
+CPU 0 L1D next line prefetcher
+
+Warmup complete CPU 0 instructions: 5000003 cycles: 1577030 (Simulation time: 0 hr 0 min 11 sec) 
+
+Heartbeat CPU 0 instructions: 10000003 cycles: 5796720 heartbeat IPC: 1.72511 cumulative IPC: 1.18492 (Simulation time: 0 hr 0 min 22 sec) 
+Finished CPU 0 instructions: 5000000 cycles: 4219690 cumulative IPC: 1.18492 (Simulation time: 0 hr 0 min 22 sec) 
+
+ChampSim completed all CPUs
+
+Region of Interest Statistics
+
+CPU 0 cumulative IPC: 1.18492 instructions: 5000000 cycles: 4219690
+
+SHEET
+IPC : 1.18492
+
+L1D TOTAL     ACCESS:    2183938  HIT:    2123012  MISS:      60926
+L1D LOAD      ACCESS:     921272  HIT:     891524  MISS:      29748
+L1D RFO       ACCESS:     368398  HIT:     365137  MISS:       3261
+L1D PREFETCH  ACCESS:     894268  HIT:     866351  MISS:      27917
+L1D WRITEBACK ACCESS:          0  HIT:          0  MISS:          0
+L1D PREFETCH  REQUESTED:     927800  ISSUED:     916185  USEFUL:      13008  USELESS:      14938
+L1D AVERAGE MISS LATENCY: 55.324 cycles
+L1D
+
+SHEET
+L1D-total_access : 2183938
+L1D-total_hit : 2123012
+L1D-total_miss : 60926
+L1D-load_access : 921272
+L1D-load_hit : 891524
+L1D-load_miss : 29748
+L1D-rfo_access : 368398
+L1D-rfo_hit : 365137
+L1D-rfo_miss : 3261
+L1D-prefetch_access : 894268
+L1D-prefetch_hit : 866351
+L1D-prefetch_miss : 27917
+L1D-writeback_access : 0
+L1D-writeback_hit : 0
+L1D-writeback_miss : 0
+L1D-prefetch_requested : 927800
+L1D-prefetch_issued : 916185
+L1D-prefetch_useful : 13008
+L1D-prefetch_useless : 14938
+L1D-Avg_miss_latency : 55.324
+
+L1D-Morteza_l1daddpq : 30511
+
+L1D-Morteza_l1iaddpq : 0
+
+L1D-Morteza_l2caddpq : 0
+
+L1D-Morteza_pq_inserted : 914205
+
+L1D-Morteza_pq_remove_hit : 866351
+
+L1D-Morteza_pq_remove_miss : 47849
+
+L1D-Morteza_pq_mshr_hit : 17338
+
+L1D-Morteza_mshr_type_change1 : 13
+
+L1D-Morteza_mshr_type_change2 : 2581
+
+L1D-Morteza_fill_l2_prefetches : 0
+
+L1I TOTAL     ACCESS:    1175755  HIT:    1156492  MISS:      19263
+L1I LOAD      ACCESS:     909065  HIT:     906216  MISS:       2849
+L1I RFO       ACCESS:          0  HIT:          0  MISS:          0
+L1I PREFETCH  ACCESS:     266690  HIT:     250276  MISS:      16414
+L1I WRITEBACK ACCESS:          0  HIT:          0  MISS:          0
+L1I PREFETCH  REQUESTED:     286523  ISSUED:     284179  USEFUL:      13900  USELESS:       2568
+L1I AVERAGE MISS LATENCY: 20.2585 cycles
+L1I
+
+SHEET
+L1I-total_access : 1175755
+L1I-total_hit : 1156492
+L1I-total_miss : 19263
+L1I-load_access : 909065
+L1I-load_hit : 906216
+L1I-load_miss : 2849
+L1I-rfo_access : 0
+L1I-rfo_hit : 0
+L1I-rfo_miss : 0
+L1I-prefetch_access : 266690
+L1I-prefetch_hit : 250276
+L1I-prefetch_miss : 16414
+L1I-writeback_access : 0
+L1I-writeback_hit : 0
+L1I-writeback_miss : 0
+L1I-prefetch_requested : 286523
+L1I-prefetch_issued : 284179
+L1I-prefetch_useful : 13900
+L1I-prefetch_useless : 2568
+L1I-Avg_miss_latency : 20.2585
+
+L1I-Morteza_l1daddpq : 0
+
+L1I-Morteza_l1iaddpq : 16919
+
+L1I-Morteza_l2caddpq : 0
+
+L1I-Morteza_pq_inserted : 268287
+
+L1I-Morteza_pq_remove_hit : 250276
+
+L1I-Morteza_pq_remove_miss : 18011
+
+L1I-Morteza_pq_mshr_hit : 1092
+
+L1I-Morteza_mshr_type_change1 : 0
+
+L1I-Morteza_mshr_type_change2 : 505
+
+L1I-Morteza_fill_l2_prefetches : 0
+
+L2C TOTAL     ACCESS:     115803  HIT:      81236  MISS:      34567
+L2C LOAD      ACCESS:      29511  HIT:      14681  MISS:      14830
+L2C RFO       ACCESS:       3248  HIT:       1010  MISS:       2238
+L2C PREFETCH  ACCESS:      72947  HIT:      55478  MISS:      17469
+L2C WRITEBACK ACCESS:      10097  HIT:      10067  MISS:         30
+L2C PREFETCH  REQUESTED:     104853  ISSUED:     104515  USEFUL:       1611  USELESS:      16059
+L2C AVERAGE MISS LATENCY: 81.1724 cycles
+L2C
+
+SHEET
+L2C-total_access : 115803
+L2C-total_hit : 81236
+L2C-total_miss : 34567
+L2C-load_access : 29511
+L2C-load_hit : 14681
+L2C-load_miss : 14830
+L2C-rfo_access : 3248
+L2C-rfo_hit : 1010
+L2C-rfo_miss : 2238
+L2C-prefetch_access : 72947
+L2C-prefetch_hit : 55478
+L2C-prefetch_miss : 17469
+L2C-writeback_access : 10097
+L2C-writeback_hit : 10067
+L2C-writeback_miss : 30
+L2C-prefetch_requested : 104853
+L2C-prefetch_issued : 104515
+L2C-prefetch_useful : 1611
+L2C-prefetch_useless : 16059
+L2C-Avg_miss_latency : 81.1724
+
+L2C-Morteza_l1daddpq : 0
+
+L2C-Morteza_l1iaddpq : 0
+
+L2C-Morteza_l2caddpq : 104515
+
+L2C-Morteza_pq_inserted : 107386
+
+L2C-Morteza_pq_remove_hit : 55478
+
+L2C-Morteza_pq_remove_miss : 51908
+
+L2C-Morteza_pq_mshr_hit : 2313
+
+L2C-Morteza_mshr_type_change1 : 0
+
+L2C-Morteza_mshr_type_change2 : 1
+
+L2C-Morteza_fill_l2_prefetches : 25406
+
+LLC TOTAL     ACCESS:      73057  HIT:      51696  MISS:      21361
+LLC LOAD      ACCESS:      14829  HIT:       9282  MISS:       5547
+LLC RFO       ACCESS:       2238  HIT:        754  MISS:       1484
+LLC PREFETCH  ACCESS:      47023  HIT:      32775  MISS:      14248
+LLC WRITEBACK ACCESS:       8967  HIT:       8885  MISS:         82
+LLC PREFETCH  REQUESTED:          0  ISSUED:          0  USEFUL:       4939  USELESS:       3654
+LLC AVERAGE MISS LATENCY: 142.212 cycles
+LLC
+
+SHEET
+LLC-total_access : 73057
+LLC-total_hit : 51696
+LLC-total_miss : 21361
+LLC-load_access : 14829
+LLC-load_hit : 9282
+LLC-load_miss : 5547
+LLC-rfo_access : 2238
+LLC-rfo_hit : 754
+LLC-rfo_miss : 1484
+LLC-prefetch_access : 47023
+LLC-prefetch_hit : 32775
+LLC-prefetch_miss : 14248
+LLC-writeback_access : 8967
+LLC-writeback_hit : 8885
+LLC-writeback_miss : 82
+LLC-prefetch_requested : 0
+LLC-prefetch_issued : 0
+LLC-prefetch_useful : 4939
+LLC-prefetch_useless : 3654
+LLC-Avg_miss_latency : 142.212
+
+LLC-Morteza_l1daddpq : 0
+
+LLC-Morteza_l1iaddpq : 0
+
+LLC-Morteza_l2caddpq : 0
+
+LLC-Morteza_pq_inserted : 49344
+
+LLC-Morteza_pq_remove_hit : 32775
+
+LLC-Morteza_pq_remove_miss : 16569
+
+LLC-Morteza_pq_mshr_hit : 1870
+
+LLC-Morteza_mshr_type_change1 : 0
+
+LLC-Morteza_mshr_type_change2 : 451
+
+LLC-Morteza_fill_l2_prefetches : 21736
+
+Major fault: 0 Minor fault: 1570
+
+
+
+Printing Logs
+statHeadFound: 24680
+statHeadMissing: 51202
+statStreamBufferHit: 1167265
+statPrefetchEntryFound: 255286
+statCompactorMatch: 1153669
+statStreamTrackerLookup: 1243147
+statRecord: 89478
+statGetPointer: 75882
+statEnqueuePrefetch: 911303
+statPrefetchQueueIsFull: 18
+StreamBufferHitRate: 0.93896
+Regions' size: 975
+next_region_correct: 70038
+next_region_wrong: 18447
+next_region_correct_prediction: 0.791524
+statStreamBufferLookups: 89506584
+statL1iLookups: 7290424
+statCompactorLookups: 44753292
+morteza: start
+
+SHEET
+mana_table_access_counter : 344764
+hobp_table_access_counter : 916727
+sab_access_counter : 1422551
+srq_access_counter : 1104148
+
+morteza: end
+CPU 0 L1D next line prefetcher final stats
+
+DRAM Statistics
+ CHANNEL 0
+ RQ ROW_BUFFER_HIT:       8343  ROW_BUFFER_MISS:      12936
+ DBUS_CONGESTED:       9298
+ WQ ROW_BUFFER_HIT:        723  ROW_BUFFER_MISS:       2593  FULL:          0
+
+ AVG_CONGESTED_CYCLE: 5
+
+CPU 0 Branch Prediction Accuracy: 97.6711% MPKI: 4.8744 Average ROB Occupancy at Mispredict: 104.219
+
+Branch types
+NOT_BRANCH: 3953302 79.066%
+BRANCH_DIRECT_JUMP: 48558 0.97116%
+BRANCH_INDIRECT: 1942 0.03884%
+BRANCH_CONDITIONAL: 816198 16.324%
+BRANCH_DIRECT_CALL: 49457 0.98914%
+BRANCH_INDIRECT_CALL: 40435 0.8087%
+BRANCH_RETURN: 89896 1.79792%
+BRANCH_OTHER: 0 0%
+

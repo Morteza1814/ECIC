@@ -7,6 +7,9 @@ Welcome to our repository focused on addressing energy consumption challenges in
 
 In this context, our work explores methods to decrease the energy consumption overhead attributed to the use of L1-I prefetchers. We identify that a significant portion of this consumption is due to the implicit pressure of the L1-I prefetcher on the cache hierarchy (L1-I and L2) rather than the prefetcher's metadata. Our research evaluates four distinct L1-I prefetchers, namely RDIP, FNL-MMA, MANA, and PIF, assessing both their energy consumption and performance.
 
+## Simulation Infrastructure
+
+To analyze the performance and energy consumption of the selected prefetchers, we use ChampSim simulator and CACTI-7, respectively. For ChampSim, we used dpc3_traces as the trace files for 50 server workloads.
 
 ## Repository Structure
 

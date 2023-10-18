@@ -1,0 +1,59 @@
+DISTAHEAD 10
+NSHIFT 10
+LOGMULTSIZE 0
+
+*MMA filter
+	MMA_FILT_SIZE 24
+	uint64_t PREVPRED[MMA_FILT_SIZE]
+
+DISTAHEADMAX 80
+uint64_t PREVADDR[DISTAHEADMAX + 1];	//to memorize the previous addresses missing the I-Shadow cache
+uint64_t PREFCAND[DISTAHEADMAX + 1];
+MAXFNL 5
+PERIODRESET   8192
+
+FNL_NBENTRIES (1<< (16+LOGMULTSIZE ))
+*WorthPF
+	int WorthPF[FNL_NBENTRIES];
+*Touched table
+	int Touched[FNL_NBENTRIES];
+	  
+*I-Shadow cache
+	NBWAYISHADOW 3
+	SIZESHADOWICACHE (64*NBWAYISHADOW)
+	uint64_t ShadowICache[64][NBWAYISHADOW]
+	
+*FNL filter	
+	FITERFNLON
+	NBWAYFILTERFNL 4
+	SIZEWAYFILTERFNL 32
+	SIZEFILTERFNL (SIZEWAYFILTERFNL*NBWAYFILTERFNL)
+	uint64_t JUSTNLPREFETCH[SIZEWAYFILTERFNL][NBWAYFILTERFNL]
+
+*miss ahead prediction table
+	NBWAYPRED 8
+	LOGTAGNEXTMISS 12	// 12 bit tags
+	LOGWAYNEXTMISS (10 +LOGMULTSIZE)
+	SIZEWAYNEXTMISS (1 << LOGWAYNEXTMISS)
+	uint64_t GNtag[NBWAYPRED * SIZEWAYNEXTMISS]
+	uint64_t GNblock[NBWAYPRED * SIZEWAYNEXTMISS]
+	int GNbMiss[NBWAYPRED * SIZEWAYNEXTMISS] 
+	int8_t GU[NBWAYPRED * SIZEWAYNEXTMISS] 
+	  
+I-Shadow cache
+	(SIZESHADOWICACHE=64*3 * (15[partialtag] + 2[lru])/8
+	(192 17-bit entries) = 408 bytes for the 
+Touched table
+	(FNL_NBENTRIES * 3) / 8
+	(64K1-bit entries) = 8Kbytes
+WorthPF table
+	(64K 2-bit entries) = 16Kbytes
+miss ahead prediction table
+	(71=[58+12+1] * NBWAYPRED=8 * SIZEWAYNEXTMISS=1024 / 8)
+	(8K 71-bit entries) = 71Kbytes
+MMA filter
+	((MMA_FILT_SIZE * 58)/8
+	(16 58-bit addresses) = 116 bytes
+FNL filter
+	(SIZEFILTERFNL * (15 + 2))/8
+	(128 17-bit entries) = 136 bytes for the 

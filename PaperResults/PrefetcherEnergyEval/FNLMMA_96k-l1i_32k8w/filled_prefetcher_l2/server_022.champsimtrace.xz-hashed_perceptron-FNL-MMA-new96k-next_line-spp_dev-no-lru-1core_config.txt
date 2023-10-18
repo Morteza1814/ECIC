@@ -1,0 +1,221 @@
+Initialize SIGNATURE TABLE
+ST_SET: 1
+ST_WAY: 256
+ST_TAG_BIT: 16
+ST_TAG_MASK: ffff
+
+Initialize PATTERN TABLE
+PT_SET: 512
+PT_WAY: 4
+SIG_DELTA_BIT: 7
+C_SIG_BIT: 4
+C_DELTA_BIT: 4
+
+Initialize PREFETCH FILTER
+FILTER_SET: 1024
+
+*** ChampSim Multicore Out-of-Order Simulator ***
+
+Warmup Instructions: 50000000
+Simulation Instructions: 50000000
+Number of CPUs: 1
+LLC sets: 2048
+LLC ways: 16
+Off-chip DRAM Size: 4096 MB Channels: 1 Width: 64-bit Data Rate: 3200 MT/s
+
+CPU 0 runs /home/mbaradaran/ChampSim/dpc3_traces/server_022.champsimtrace.xz
+CPU 0 L1I next line prefetcher
+CPU 0 L1D next line prefetcher
+Heartbeat CPU 0 instructions: 10000002 cycles: 3623450 heartbeat IPC: 2.7598 cumulative IPC: 2.7598 (Simulation time: 0 hr 1 min 52 sec) 
+Heartbeat CPU 0 instructions: 20000001 cycles: 7252980 heartbeat IPC: 2.75518 cumulative IPC: 2.75749 (Simulation time: 0 hr 3 min 49 sec) 
+Heartbeat CPU 0 instructions: 30000003 cycles: 10876125 heartbeat IPC: 2.76003 cumulative IPC: 2.75834 (Simulation time: 0 hr 5 min 46 sec) 
+Heartbeat CPU 0 instructions: 40000003 cycles: 14506735 heartbeat IPC: 2.75436 cumulative IPC: 2.75734 (Simulation time: 0 hr 7 min 44 sec) 
+Heartbeat CPU 0 instructions: 50000002 cycles: 18127363 heartbeat IPC: 2.76195 cumulative IPC: 2.75826 (Simulation time: 0 hr 9 min 44 sec) 
+
+Warmup complete CPU 0 instructions: 50000002 cycles: 18127363 (Simulation time: 0 hr 9 min 44 sec) 
+
+Heartbeat CPU 0 instructions: 60000000 cycles: 34718536 heartbeat IPC: 0.60273 cumulative IPC: 0.60273 (Simulation time: 0 hr 12 min 29 sec) 
+Heartbeat CPU 0 instructions: 70000001 cycles: 51426420 heartbeat IPC: 0.59852 cumulative IPC: 0.600618 (Simulation time: 0 hr 15 min 11 sec) 
+Heartbeat CPU 0 instructions: 80000001 cycles: 67971597 heartbeat IPC: 0.604406 cumulative IPC: 0.601875 (Simulation time: 0 hr 17 min 49 sec) 
+Heartbeat CPU 0 instructions: 90000003 cycles: 84679929 heartbeat IPC: 0.598504 cumulative IPC: 0.601029 (Simulation time: 0 hr 20 min 38 sec) 
+Heartbeat CPU 0 instructions: 100000003 cycles: 101100147 heartbeat IPC: 0.609005 cumulative IPC: 0.602607 (Simulation time: 0 hr 23 min 0 sec) 
+Finished CPU 0 instructions: 50000001 cycles: 82972784 cumulative IPC: 0.602607 (Simulation time: 0 hr 23 min 0 sec) 
+
+ChampSim completed all CPUs
+
+Region of Interest Statistics
+
+CPU 0 cumulative IPC: 0.602607 instructions: 50000001 cycles: 82972784
+
+SHEET
+IPC : 0.602607
+
+L1D TOTAL     ACCESS:   18692249  HIT:   16481485  MISS:    2210764
+L1D LOAD      ACCESS:    7053703  HIT:    6350671  MISS:     703032
+L1D RFO       ACCESS:    5878527  HIT:    4899004  MISS:     979523
+L1D PREFETCH  ACCESS:    5760019  HIT:    5231810  MISS:     528209
+L1D WRITEBACK ACCESS:          0  HIT:          0  MISS:          0
+L1D PREFETCH  REQUESTED:    7095431  ISSUED:    6887258  USEFUL:     207009  USELESS:     321205
+L1D AVERAGE MISS LATENCY: 180.267 cycles
+L1D
+
+SHEET
+L1D-total_access : 18692249
+L1D-total_hit : 16481485
+L1D-total_miss : 2210764
+L1D-load_access : 7053703
+L1D-load_hit : 6350671
+L1D-load_miss : 703032
+L1D-rfo_access : 5878527
+L1D-rfo_hit : 4899004
+L1D-rfo_miss : 979523
+L1D-prefetch_access : 5760019
+L1D-prefetch_hit : 5231810
+L1D-prefetch_miss : 528209
+L1D-writeback_access : 0
+L1D-writeback_hit : 0
+L1D-writeback_miss : 0
+L1D-prefetch_requested : 7095431
+L1D-prefetch_issued : 6887258
+L1D-prefetch_useful : 207009
+L1D-prefetch_useless : 321205
+L1D-Avg_miss_latency : 180.267
+L1D-Morteza_fill_l2_prefetches : 0
+
+L1I TOTAL     ACCESS:   14910171  HIT:   11928385  MISS:    2981786
+L1I LOAD      ACCESS:   10125130  HIT:   10092669  MISS:      32461
+L1I RFO       ACCESS:          0  HIT:          0  MISS:          0
+L1I PREFETCH  ACCESS:    4785041  HIT:    1835716  MISS:    2949325
+L1I WRITEBACK ACCESS:          0  HIT:          0  MISS:          0
+L1I PREFETCH  REQUESTED:    4956054  ISSUED:    4956044  USEFUL:    2573876  USELESS:     375444
+L1I AVERAGE MISS LATENCY: 17.2574 cycles
+L1I
+
+SHEET
+L1I-total_access : 14910171
+L1I-total_hit : 11928385
+L1I-total_miss : 2981786
+L1I-load_access : 10125130
+L1I-load_hit : 10092669
+L1I-load_miss : 32461
+L1I-rfo_access : 0
+L1I-rfo_hit : 0
+L1I-rfo_miss : 0
+L1I-prefetch_access : 4785041
+L1I-prefetch_hit : 1835716
+L1I-prefetch_miss : 2949325
+L1I-writeback_access : 0
+L1I-writeback_hit : 0
+L1I-writeback_miss : 0
+L1I-prefetch_requested : 4956054
+L1I-prefetch_issued : 4956044
+L1I-prefetch_useful : 2573876
+L1I-prefetch_useless : 375444
+L1I-Avg_miss_latency : 17.2574
+L1I-Morteza_fill_l2_prefetches : 0
+
+L2C TOTAL     ACCESS:    7475403  HIT:    5615493  MISS:    1859910
+L2C LOAD      ACCESS:     487811  HIT:     244588  MISS:     243223
+L2C RFO       ACCESS:     979009  HIT:      20153  MISS:     958856
+L2C PREFETCH  ACCESS:    4823394  HIT:    4167943  MISS:     655451
+L2C WRITEBACK ACCESS:    1185189  HIT:    1182809  MISS:       2380
+L2C PREFETCH  REQUESTED:    4956914  ISSUED:    4948956  USEFUL:      21039  USELESS:     634417
+L2C AVERAGE MISS LATENCY: 218.894 cycles
+L2C
+
+SHEET
+L2C-total_access : 7475403
+L2C-total_hit : 5615493
+L2C-total_miss : 1859910
+L2C-load_access : 487811
+L2C-load_hit : 244588
+L2C-load_miss : 243223
+L2C-rfo_access : 979009
+L2C-rfo_hit : 20153
+L2C-rfo_miss : 958856
+L2C-prefetch_access : 4823394
+L2C-prefetch_hit : 4167943
+L2C-prefetch_miss : 655451
+L2C-writeback_access : 1185189
+L2C-writeback_hit : 1182809
+L2C-writeback_miss : 2380
+L2C-prefetch_requested : 4956914
+L2C-prefetch_issued : 4948956
+L2C-prefetch_useful : 21039
+L2C-prefetch_useless : 634417
+L2C-Avg_miss_latency : 218.894
+L2C-Morteza_fill_l2_prefetches : 1145245
+
+LLC TOTAL     ACCESS:    4224494  HIT:    2820556  MISS:    1403938
+LLC LOAD      ACCESS:     243114  HIT:     169899  MISS:      73215
+LLC RFO       ACCESS:     958816  HIT:     140916  MISS:     817900
+LLC PREFETCH  ACCESS:    1904332  HIT:    1393668  MISS:     510664
+LLC WRITEBACK ACCESS:    1118232  HIT:    1116073  MISS:       2159
+LLC PREFETCH  REQUESTED:          0  ISSUED:          0  USEFUL:      28992  USELESS:     482153
+LLC AVERAGE MISS LATENCY: 294.891 cycles
+LLC
+
+SHEET
+LLC-total_access : 4224494
+LLC-total_hit : 2820556
+LLC-total_miss : 1403938
+LLC-load_access : 243114
+LLC-load_hit : 169899
+LLC-load_miss : 73215
+LLC-rfo_access : 958816
+LLC-rfo_hit : 140916
+LLC-rfo_miss : 817900
+LLC-prefetch_access : 1904332
+LLC-prefetch_hit : 1393668
+LLC-prefetch_miss : 510664
+LLC-writeback_access : 1118232
+LLC-writeback_hit : 1116073
+LLC-writeback_miss : 2159
+LLC-prefetch_requested : 0
+LLC-prefetch_issued : 0
+LLC-prefetch_useful : 28992
+LLC-prefetch_useless : 482153
+LLC-Avg_miss_latency : 294.891
+LLC-Morteza_fill_l2_prefetches : 1043586
+
+Major fault: 0 Minor fault: 23506
+I-Shadow cache 408 bytes
+Touched + WorthPF tables 24576 bytes 
+MMA filter 174 bytes 
+FNL filter 272 bytes 
+TOTAL PREFETCHER STORAGE SIZE: 98134 bytes
+CPU 0 L1I next line prefetcher final stats
+
+ morteza stats start 
+
+SHEET
+fnlfilter_access_cntr : 26955869
+iShadow_access_cntr : 43222560
+missahead_access_cntr : 8742787
+mmafilter_access_cntr : 14167494
+touched_access_cntr : 67151910
+worthpf_access_cntr : 25269675
+
+
+morteza stats endCPU 0 L1D next line prefetcher final stats
+
+DRAM Statistics
+ CHANNEL 0
+ RQ ROW_BUFFER_HIT:     405349  ROW_BUFFER_MISS:     996100
+ DBUS_CONGESTED:    1458773
+ WQ ROW_BUFFER_HIT:     256182  ROW_BUFFER_MISS:     647393  FULL:          0
+
+ AVG_CONGESTED_CYCLE: 6
+
+CPU 0 Branch Prediction Accuracy: 99.8317% MPKI: 0.27564 Average ROB Occupancy at Mispredict: 220.737
+
+Branch types
+NOT_BRANCH: 41811169 83.6223%
+BRANCH_DIRECT_JUMP: 445742 0.891484%
+BRANCH_INDIRECT: 48876 0.097752%
+BRANCH_CONDITIONAL: 5859410 11.7188%
+BRANCH_DIRECT_CALL: 758268 1.51654%
+BRANCH_INDIRECT_CALL: 159103 0.318206%
+BRANCH_RETURN: 917372 1.83474%
+BRANCH_OTHER: 0 0%
+

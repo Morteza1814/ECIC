@@ -20,4 +20,6 @@ For more detailed information, refer to the respective directories and documenta
 ---
 
 *Note: This README provides an overview of the research and findings. For comprehensive details, consult the relevant research paper(s) and associated documentation.*
-[link](https://ieeexplore.ieee.org/abstract/document/10306038)M. Baradaran, A. Ansari, M. Sadrosadati and H. Sarbazi-Azad, "Energy Consumption Analysis of Instruction Cache Prefetching Methods," 2023 International Symposium on Computer Architecture and High Performance Computing Workshops (SBAC-PADW), Porto Alegre, Brazil, 2023, pp. 60-67, doi: 10.1109/SBAC-PADW60351.2023.00019.
+[here:](https://ieeexplore.ieee.org/abstract/document/10306038)
+
+M. Baradaran, A. Ansari, M. Sadrosadati and H. Sarbazi-Azad, "Energy Consumption Analysis of Instruction Cache Prefetching Methods," 2023 International Symposium on Computer Architecture and High Performance Computing Workshops (SBAC-PADW), Porto Alegre, Brazil, 2023, pp. 60-67, doi: 10.1109/SBAC-PADW60351.2023.00019.

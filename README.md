@@ -1,5 +1,7 @@
-# ECICP
-Energy Consumption Analysis of Instruction Cache Prefetching Methods
+# ECICP: Energy Consumption Analysis of Instruction Cache Prefetching Methods
+
+[![Academic Code](https://img.shields.io/badge/Origin-Academic%20Code-C1ACA0.svg?style=flat)]() [![Language Badge](https://img.shields.io/badge/Made%20with-C/C++-blue.svg)]
+
 
 ## Introduction
 

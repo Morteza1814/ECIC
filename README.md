@@ -19,7 +19,7 @@ This repository contains code, experiments, and results from our research on mit
 
 For more detailed information, refer to this repository's respective directories and our [paper](https://ieeexplore.ieee.org/abstract/document/10306038).
 
-# References
+## References
 **Please cite the following if you use the source code from this repository in your research.**
 ```
 @INPROCEEDINGS{10306038,

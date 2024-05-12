@@ -19,9 +19,21 @@ This repository contains code, experiments, and results from our research on mit
 
 For more detailed information, refer to this repository's respective directories and our [paper](https://ieeexplore.ieee.org/abstract/document/10306038).
 
----
+# References
+**Please cite the following if you use the source code from this repository in your research.**
+```
+@INPROCEEDINGS{10306038,
+  author={Baradaran, Morteza and Ansari, Ali and Sadrosadati, Mohammad and Sarbazi-Azad, Hamid},
+  booktitle={2023 International Symposium on Computer Architecture and High Performance Computing Workshops (SBAC-PADW)}, 
+  title={Energy Consumption Analysis of Instruction Cache Prefetching Methods}, 
+  year={2023},
+  volume={},
+  number={},
+  pages={60-67},
+  keywords={Surveys;Energy consumption;Program processors;Prefetching;High performance computing;Conferences;Energy conservation;energy consumption;instruction prefetching;instruction cache;cache associativity},
+  doi={10.1109/SBAC-PADW60351.2023.00019}
+}
 
-*Note: This README provides an overview of the research and findings. For comprehensive details, consult the relevant research paper(s) and associated documentation.*
-[here:](https://ieeexplore.ieee.org/abstract/document/10306038)
+```
 
-M. Baradaran, A. Ansari, M. Sadrosadati and H. Sarbazi-Azad, "Energy Consumption Analysis of Instruction Cache Prefetching Methods," 2023 International Symposium on Computer Architecture and High Performance Computing Workshops (SBAC-PADW), Porto Alegre, Brazil, 2023, pp. 60-67, doi: 10.1109/SBAC-PADW60351.2023.00019.
+[1] M. Baradaran, A. Ansari, M. Sadrosadati and H. Sarbazi-Azad, "Energy Consumption Analysis of Instruction Cache Prefetching Methods," 2023 International Symposium on Computer Architecture and High Performance Computing Workshops (SBAC-PADW), Porto Alegre, Brazil, 2023, pp. 60-67, doi: 10.1109/SBAC-PADW60351.2023.00019.
